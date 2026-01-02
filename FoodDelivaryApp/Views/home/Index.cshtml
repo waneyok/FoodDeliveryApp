@@ -1,0 +1,83 @@
+@model List<FoodDeliveryApp.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+    <h1 class="display-4">Добро пожаловать в Food Delivery!</h1>
+    <p class="lead">Закажите вкусную еду из лучших ресторанов города с доставкой на дом.</p>
+    <a class="btn btn-light btn-lg" href="/Home/Restaurants">Смотреть рестораны</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-bolt fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Быстрая доставка</h5>
+                <p class="card-text">Доставка за 30-60 минут</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-utensils fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Свежие продукты</h5>
+                <p class="card-text">Только качественные ингредиенты</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-star fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Лучшие рестораны</h5>
+                <p class="card-text">Проверенные заведения</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-credit-card fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Удобная оплата</h5>
+                <p class="card-text">Наличными или картой</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mb-4">Популярные рестораны</h2>
+
+<div class="row">
+    @foreach (var restaurant in Model.Take(3))
+    {
+        <div class="col-md-4">
+            <div class="card restaurant-card">
+                <img src="@restaurant.ImageUrl" class="card-img-top" alt="@restaurant.Name" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@restaurant.Name</h5>
+                    <p class="card-text">@restaurant.Description</p>
+                    <div class="mb-2">
+                        <span class="badge bg-warning text-dark">
+                            <i class="fas fa-star"></i> @restaurant.Rating.ToString("0.0")
+                        </span>
+                        <span class="badge bg-info">
+                            <i class="fas fa-clock"></i> @restaurant.DeliveryTime мин
+                        </span>
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-shipping-fast"></i> @restaurant.DeliveryFee.ToString("C")
+                        </span>
+                    </div>
+                    <a href="/Home/Menu/@restaurant.Id" class="btn btn-primary">Смотреть меню</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-4">
+    <a href="/Home/Restaurants" class="btn btn-outline-primary btn-lg">Все рестораны</a>
+</div>
